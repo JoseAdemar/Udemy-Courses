@@ -1,0 +1,9 @@
+<h5>*ngIf</h5>
+
+<div *ngIf="cursos.length > 0 else semCurso">
+    Lista de cursos aqui..!
+</div>
+
+<ng-template #semCurso>
+  <div>Não existe lista de cursos..!</div>
+</ng-template>

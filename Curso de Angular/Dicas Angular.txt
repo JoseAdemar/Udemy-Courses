@@ -1,0 +1,79 @@
+
+ Exemplo de String interpolation:
+ 
+ test: string = "This is a test";
+ {{ test }}  // Dois abre chaves e dois fecha chaves chamamos de string interpolation.
+ 
+ Utilizando esse recurso, conseguimos pegar o valor que está atribuido a essa variável test 
+ e exibir na tela do nosso front-end.
+ ------------------------------------
+
+ Exemplos de property binding:
+
+ allowNewServer: boolean = false;
+ <button [disabled]="!allowNewServer" </button>>
+ 
+ Nesse exemplo, estou fazendo um property biding do elemnto disabled com a minha variável booleana allowNewServer.
+ Esse código está dizendo, enquanto a minha variável allowNewServer estivier como false, o botão vai continuar 
+ desativado.
+ -----------
+
+ Exemplo de event biding:
+
+ event biding é utilizado para quando eu quiser pegar algum evento e fazer alguma coisa com esse evento, geralmente
+ fazer a chamada de algum método.
+
+ Exemplo: 
+
+ serverCreationStatus = 'No serve was created!';
+ 
+ onCreateServer(){
+    this.serverCreationStatus = 'The serve was created!';
+  }
+
+
+ <button (click)="onCreateServer()" class="btn btn-primary">Add Server</button>
+ {{ serverCreationStatus }}
+
+ Nesse exemplo, eu utilizei o event biding, para o event biding colocamos o evento que queremos executar
+ dentro de parenteses e depois fazemos a chamada do método que criamos. Nesse caso aí ao clicar o botão 
+ Add Server, vamos mudar o valor da variável serverCreationStatus para The serve was created! Para exibir
+ a mudança na tela, podemos utilizar string interpolation.
+
+ Também podemos utilizar outras formas de utilizar o evet biding, uma delas é utilizando uma propiedade 
+ reservada do angular $event.
+ 
+ serveName = "";
+
+ onUpadteServerName(event: Event){
+    this.serverName = (<HTMLInputElement>event.target).value;
+  }
+
+ <input type="text" class="form-control" (input)="onUpadteServerName($event)">
+
+ Nesse exemplo as propiedades event: Event é reservadas do angular, nesse exemplo eu uso o event biding para
+ pegar o valor que foi inserido na variável serveName no input e já exibir ele na saída.
+ Sendo assim, quando eu for digitando um valor no input ele já sendo exibido na saída.
+ ---------------------------------------------------------------------------------------
+
+ Exemplo two-way data binding:
+
+ serveName = "";
+
+ <input type="text" class="form-control" [(ngModel)]="serverName">
+
+ <p>{{serverName}}</p>
+
+ Nesse exemplos, como podemos ver, é bem simples o two-way data-binding, utilizamos essa estrutura de colchetes e parenteses
+ e em seguida adicionamos a nossa variável. Isso faz com que ao digitar qualquer coisa no nosso input automáticamente é 
+ exibido na saída o resultado.
+ -----------------------------
+
+ 
+ 
+ 
+
+
+
+
+ 

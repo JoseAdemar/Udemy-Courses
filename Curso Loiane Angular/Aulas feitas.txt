@@ -1,0 +1,4 @@
+Estou na aula Curso Angular #31: Operador Elvis ("?")
+
+criar um projeto no angular 17  com appModule 
+ng new meuApp --no-standalone
