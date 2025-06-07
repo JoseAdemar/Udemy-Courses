@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-3">
+        <h5 [ngClass]="{online: serverStatus === 'Status Online'}">{{'Server'}} with ID {{serverId}} is
+            {{getServerStatus()}}</h5>
+    </div>
+    <div class="col-9" style="margin-top: 4px; padding-left: 0px;">
+        <h6 class="circulo" [ngStyle]="{backgroundColor: getColor()}"></h6>
+    </div>
+</div>

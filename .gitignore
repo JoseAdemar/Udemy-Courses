@@ -1,0 +1,97 @@
+# === Java ===
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Eclipse project files
+.project
+.classpath
+.settings/
+
+# IntelliJ IDEA project files
+*.iml
+.idea/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle/
+build/
+
+# === Node / JavaScript / Angular / React ===
+
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+out/
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE and editor folders
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Angular specific
+.angular/
+
+# React specific
+.cache/
+*.js.map
+*.css.map
+
+# Mac OS files
+.DS_Store
+
+# Windows files
+Thumbs.db
