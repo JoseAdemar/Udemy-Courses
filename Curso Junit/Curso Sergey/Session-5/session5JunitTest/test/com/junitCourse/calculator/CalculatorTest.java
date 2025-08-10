@@ -1,12 +1,17 @@
 package com.junitCourse.calculator;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
+@DisplayName("Test Math operations in Calculator class")
 class CalculatorTest {
     private Calculator calculator;
 
@@ -15,8 +20,9 @@ class CalculatorTest {
         calculator = new Calculator();
     }
 
+    @DisplayName("Division 4/2 = 2")
     @Test
-    void integerDivision() {
+    void testIntegerDivision_WhenFourIsDiviedByTwo_ShouldReturnTwo() {
         //Arrange
         int dividend = 4;
         int divisor = 2;
@@ -29,6 +35,25 @@ class CalculatorTest {
         assertEquals(expected, result, () -> dividend + " / " + divisor + "did not produce " + expected);
     }
 
+    @DisplayName("Division by Zero")
+    @Test
+    void testIntegerDivision_WhenDividendIsDiviedByZero_ShouldThrowArithmeticException() {
+        //Arrange
+        int dividend = 4;
+        int divisor = 0;
+        String expectedExceptionMessage = "/ by zero";
+
+        //Act and Assert
+        ArithmeticException actualException = assertThrows(ArithmeticException.class, () -> {
+            int result = calculator.integerDivision(dividend, divisor);
+        });
+
+        //Assert
+        assertEquals(expectedExceptionMessage, actualException.getMessage(),
+                () -> dividend + " / " + divisor + " Unexpected Message");
+    }
+
+    @DisplayName("Test 4 - 2 = 2")
     @Test
     void integerSubtraction() {
         //Arrange
