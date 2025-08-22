@@ -4,8 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -71,5 +75,21 @@ class CalculatorTest {
                 return minuend + " - " + subtrahend + " did not produce " + expected;
             }
         });
+    }
+
+    @DisplayName("Test integer subtraction [minuend, subtrahend, expected")
+    @ParameterizedTest
+    @MethodSource("integerSubtractionInputParameters")
+    void integerSubtraction(int minuend, int subtrahend, int expectedResult) {
+        System.out.println("Runing Test " + minuend + "-" + subtrahend + "=" + expectedResult);
+
+        int actualResult = calculator.integerSubtraction(minuend, subtrahend);
+        assertEquals(expectedResult, actualResult, ()-> minuend + "-" + subtrahend + " did not produce " + expectedResult);
+    }
+
+    private static Stream<Arguments> integerSubtractionInputParameters () {
+        return Stream.of(Arguments.of(33, 1, 32),
+                Arguments.of(54, 1, 53),
+                Arguments.of(24, 1, 23));
     }
 }
