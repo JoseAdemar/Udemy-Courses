@@ -1,6 +1,8 @@
+package arrays;
+
 import java.util.Arrays;
 
-public class Main {
+public class ArrayExemplo1 {
     public static void main(String[] args) {
 
         int[] intArray;

@@ -1,3 +1,5 @@
+package produtoCartesiano;
+
 import java.util.Arrays;
 import java.util.List;
 

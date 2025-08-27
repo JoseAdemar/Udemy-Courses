@@ -1,6 +1,6 @@
-import java.util.Arrays;
+package arrays;
 
-public class Main3 {
+public class ArrayExemplo3 {
     public static void main(String[] args) {
 
         // Step - 1 declare

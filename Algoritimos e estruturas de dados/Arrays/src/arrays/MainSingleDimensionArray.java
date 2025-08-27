@@ -1,6 +1,6 @@
-import java.util.Arrays;
+package arrays;
 
-public class Main2 {
+public class MainSingleDimensionArray {
     public static void main(String[] args) {
         SingleDimensionArray sd = new SingleDimensionArray(10);
 
