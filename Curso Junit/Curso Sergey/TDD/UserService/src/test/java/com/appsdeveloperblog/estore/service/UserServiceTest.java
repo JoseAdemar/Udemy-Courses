@@ -1,16 +1,29 @@
 package com.appsdeveloperblog.estore.service;
 
+import com.appsdeveloperblog.estore.data.UserRepository;
 import com.appsdeveloperblog.estore.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
-    UserService userService;
+    @InjectMocks
+    UserServiceImpl userService;
+    @Mock
+    UserRepository userRepository;
     String firstName;
     String lastName;
     String email;
@@ -19,7 +32,6 @@ public class UserServiceTest {
 
     @BeforeEach
     void init() {
-        userService = new UserServiceImpl();
         firstName = "Junior";
         lastName = "Oliveira";
         email = "teste@email.com";
@@ -31,7 +43,7 @@ public class UserServiceTest {
     @Test
     void testCreateUser_whenUserDetailsProvided_returnsUserObject() {
         //Arrange
-
+        when(userRepository.save(any(User.class))).thenReturn(true);
 
         //Act
         User user = userService.createUser(firstName, lastName, email, password, repeatPassword);
@@ -42,6 +54,9 @@ public class UserServiceTest {
         assertEquals(lastName, user.getLastName(), "User's last name is wrong");
         assertEquals(email, user.getEmail(), "User's email is wrong");
         assertNotNull(user.getId(), "User id is missing");
+
+        //Verify
+        verify(userRepository).save(any(User.class));
 
     }
 
