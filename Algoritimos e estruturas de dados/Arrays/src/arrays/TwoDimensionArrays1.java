@@ -14,9 +14,10 @@ public class TwoDimensionArrays1 {
         int2DArray[1][0] = 3;
         int2DArray[1][1] = 4;
 
-        searchingValue(3);
-
-        //System.out.println(Arrays.deepToString(int2DArray));
+        System.out.println(Arrays.deepToString(int2DArray));
+        deleteValueFromArray(0, 0);
+        System.out.println(Arrays.deepToString(int2DArray));
+        //searchingValue(3);
 
         //novo exemplo
         String s2DArray[][] = {{"a", "b"}, {"c", "d"}};
@@ -33,5 +34,14 @@ public class TwoDimensionArrays1 {
             }
         }
         System.out.println("Valor " + value + " não encontrado na Matriz");
+    }
+
+    private static void deleteValueFromArray(int row, int col) {
+        try {
+            System.out.println("Successufuly deleted: " + int2DArray[row][col]);
+            int2DArray[row][col] = Integer.MIN_VALUE;
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("This index is not valid for array");
+        }
     }
 }
