@@ -74,4 +74,18 @@ public class UserServiceTest {
         //Assert
         assertEquals(expectedExceptionMessage, aThrows.getMessage(), "Exception error message not correct");
     }
+
+    @Test
+    void testCreateUser_whenSaveMethodThrowsException_thenThrowsUserServiceException() {
+        //Arrange
+        when(userRepository.save(any(User.class))).thenThrow(RuntimeException.class);
+
+        //Act & Assert
+        assertThrows(UserServiceException.class, () -> {
+            userService.createUser(firstName, lastName, email, password, repeatPassword);
+        },"Should have thrown UserServiceException");
+
+        // Assert
+
+    }
 }
