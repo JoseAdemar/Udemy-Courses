@@ -15,6 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doCallRealMethod;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -22,6 +25,8 @@ import static org.mockito.Mockito.when;
 public class UserServiceTest {
     @InjectMocks
     UserServiceImpl userService;
+    @Mock
+    EmailVerificationServiceImpl emailVerificationService;
     @Mock
     UserRepository userRepository;
     String firstName;
@@ -83,9 +88,42 @@ public class UserServiceTest {
         //Act & Assert
         assertThrows(UserServiceException.class, () -> {
             userService.createUser(firstName, lastName, email, password, repeatPassword);
-        },"Should have thrown UserServiceException");
+        }, "Should have thrown UserServiceException");
 
         // Assert
 
+    }
+
+    @Test
+    void testCreateUser_whenEmailNotificationExceptionThrown_throwUserServiceException() {
+        //Arrange
+        when(userRepository.save(any(User.class))).thenReturn(true);
+        doThrow(EmailNotificationServiceException.class)
+                .when(emailVerificationService)
+                .scheduleEmailConfirmation(any(User.class));
+
+        //Act & Assert
+        assertThrows(UserServiceException.class, () ->{
+            userService.createUser(firstName, lastName, email, password, repeatPassword);
+        }, "Should thrown UserServiceException instead");
+
+        //Verify
+        verify(emailVerificationService, times(1)).scheduleEmailConfirmation(any(User.class));
+
+    }
+
+    @Test
+    void testCreateUser_whenUserCreated_schedulesEmailConfirmation() {
+        //Arrange
+        when(userRepository.save(any(User.class))).thenReturn(true);
+
+        //Chama o método real
+        doCallRealMethod().when(emailVerificationService).scheduleEmailConfirmation(any(User.class));
+
+        //Act
+        userService.createUser(firstName, lastName, email, password, repeatPassword);
+
+        //Assert
+        verify(emailVerificationService, times(1)).scheduleEmailConfirmation(any(User.class));
     }
 }
