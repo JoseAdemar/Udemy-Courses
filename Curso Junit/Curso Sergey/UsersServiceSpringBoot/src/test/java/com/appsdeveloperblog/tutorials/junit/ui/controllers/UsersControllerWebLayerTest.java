@@ -1,24 +1,36 @@
 package com.appsdeveloperblog.tutorials.junit.ui.controllers;
 
+import com.appsdeveloperblog.tutorials.junit.service.UsersService;
+import com.appsdeveloperblog.tutorials.junit.shared.UserDto;
 import com.appsdeveloperblog.tutorials.junit.ui.request.UserDetailsRequestModel;
 import com.appsdeveloperblog.tutorials.junit.ui.response.UserRest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.UUID;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = UsersController.class, excludeAutoConfiguration = {SecurityAutoConfiguration.class})
 class UsersControllerWebLayerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockitoBean
+    UsersService usersService;
 
     @Test
     void testCreateUser_whenValidUserDetailsProvided_returnsCreatedUsersDetails() throws Exception {
@@ -29,6 +41,18 @@ class UsersControllerWebLayerTest {
         userDetailsRequestModel.setEmail("teste@email.com");
         userDetailsRequestModel.setPassword("12345678");
         userDetailsRequestModel.setRepeatPassword("12345678");
+
+//        UserDto userDto = new UserDto();
+//        userDto.setFirstName("Jose");
+//        userDto.setLastName("Oliveira");
+//        userDto.setEmail("teste@email.com");
+//        userDto.setPassword("12345678");
+//        userDto.setUserId(UUID.randomUUID().toString());
+
+        UserDto userDto = new ModelMapper().map(userDetailsRequestModel, UserDto.class);
+        userDto.setUserId(UUID.randomUUID().toString());
+
+        when(usersService.createUser(any(UserDto.class))).thenReturn(userDto);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
