@@ -1,4 +1,4 @@
-package com.algoritimo;
+package com.algoritimo.buscaBinaria;
 
 public class BuscaBinariaDeNomesExemplo {
     public static void main(String[] args) {
