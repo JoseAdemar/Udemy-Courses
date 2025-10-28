@@ -15,13 +15,15 @@ package com.algoritimo.stringsAlgo;
  * Prefixos de “flor” → “f”, “fl”, “flo”, “flor”
  *
  * O while é a parte central do algoritmo.
- * Ele verifica se o prefixo (inicialmente o primeiro elemento do array) existe no início do segundo elemento.
+ * Ele verifica se o prefixo (inicialmente o primeiro elemento do array) é igual o prefixo inicial
+ * do segundo.
  *
  * Se não existir, indexOf(prefixo) retorna -1 e o while entra em ação, encurtando o prefixo letra por letra.
  *
- * Se o prefixo for encontrado no início da string, indexOf(prefixo) retorna 0, o que faz o while parar.
- *
- * Esse processo se repete para cada elemento do array, sempre garantindo que o prefixo seja uma substring inicial da palavra atual.
+ * Se o prefixo for encontrado no início da string, indexOf(prefixo) retorna 0 que seria a primeira prosição do array,
+ * o que faz o while parar.
+ * Esse processo se repete para cada elemento do array, sempre garantindo que o prefixo seja uma substring
+ * inicial da palavra atual.
  * O loop termina quando encontramos o maior prefixo comum entre todas as strings ou quando o prefixo se torna vazio.
  */
 
@@ -29,7 +31,7 @@ public class PrefixStringChallenge {
     public static void main(String[] args) {
         // Input: strs = ["flower","flow","flight"]
         // Output: "fl"
-        String palavras[] = {"flower", "flow", "flight"};
+        String palavras[] = {"Arroz", "feijao", "arrogante", "aro"};
         System.out.println("Maior prefixo comum: " + maiorPrefixo(palavras));
         //System.out.println("Maior prefixo comum: " + maiorPrefixoComStartWith(palavras));
 
