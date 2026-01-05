@@ -12,9 +12,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.test.context.TestPropertySource;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -147,7 +145,8 @@ public class UsersControllerIntegrationTest {
         // Arrange
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        headers.setBearerAuth(authorizationToken);
+        headers.set("Authorization", authorizationToken);
+       // headers.setBearerAuth(authorizationToken);
 
         HttpEntity requestEntity = new HttpEntity(headers);
 
