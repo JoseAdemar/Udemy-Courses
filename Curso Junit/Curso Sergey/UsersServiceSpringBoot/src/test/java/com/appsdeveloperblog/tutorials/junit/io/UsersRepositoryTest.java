@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import java.util.List;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 class UsersRepositoryTest {
@@ -51,7 +55,7 @@ class UsersRepositoryTest {
         UserEntity storedUser = usersRepository.findByEmail(email1);
 
         // Assert
-        Assertions.assertEquals(email1, storedUser.getEmail(),
+        assertEquals(email1, storedUser.getEmail(),
                 "The returned email address does not match the expected value");
     }
 
@@ -63,8 +67,29 @@ class UsersRepositoryTest {
         // Assert
         Assertions.assertNotNull(storedUser,
                 "UserEntity object should not be null");
-        Assertions.assertEquals(userId2, storedUser.getUserId(),
+        assertEquals(userId2, storedUser.getUserId(),
                 "Returned userId does not much expected value");
     }
 
+    @Test
+    void testFindUsersWithEmailEndsWith_whenGiveEmailDomain_returnsUserWithGivenDomain(){
+        //Arrange
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserId(UUID.randomUUID().toString());
+        userEntity.setEmail("test@gmail.com");
+        userEntity.setEncryptedPassword("123456789");
+        userEntity.setFirstName("Sergey");
+        userEntity.setLastName("Kargopolov");
+        testEntityManager.persistAndFlush(userEntity);
+
+        String emailDomainName = "@gmail.com";
+
+        //Act
+        List<UserEntity> users = usersRepository.findUsersWithEmailEndingWith(emailDomainName);
+
+        //Assert
+        assertEquals(1, users.size(), "There should be only one user in the list");
+        assertTrue(users.get(0).getEmail().endsWith(emailDomainName));
+
+    }
 }
